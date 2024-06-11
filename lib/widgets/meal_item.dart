@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:meals_app/widgets/meal_item_trait.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal});
 
   final Meal meal;
+
+  String get complexityText {
+    return meal.complexity.name[0].toUpperCase() +
+        meal.complexity.name.substring(1);
+  }
+
+  String get affordabilityText {
+    return meal.affordability.name[0].toUpperCase() +
+        meal.affordability.name.substring(1);
+  }
 
   @override
   Widget build(context) {
@@ -33,8 +44,7 @@ class MealItem extends StatelessWidget {
               right: 0,
               child: Container(
                 color: Colors.black45,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 44),
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
                 child: Column(
                   children: [
                     Text(
@@ -45,15 +55,31 @@ class MealItem extends StatelessWidget {
                       overflow:
                           TextOverflow.ellipsis, // very long text gets ...
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 12),
                     Row(
-                      children: [],
-                    ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MealItemTrait(
+                          icon: Icons.schedule,
+                          label: '${meal.duration} min',
+                        ),
+                        const SizedBox(width: 10),
+                        MealItemTrait(
+                          icon: Icons.work_outline_rounded,
+                          label: complexityText,
+                        ),
+                        const SizedBox(width: 10),
+                        MealItemTrait(
+                          icon: Icons.attach_money_rounded,
+                          label: affordabilityText,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
