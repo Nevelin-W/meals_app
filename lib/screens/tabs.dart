@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -28,10 +29,10 @@ class _TabsScreenState extends State<TabsScreen> {
     setState(() {
       if (_favoriteMeals.contains(meal)) {
         _favoriteMeals.remove(meal);
-        _showInfoMessage('${meal.title} has been removed from favorites');
+        _showInfoMessage('${meal.title} removed from favorites');
       } else {
         _favoriteMeals.add(meal);
-        _showInfoMessage('${meal.title} has been added to favorites');
+        _showInfoMessage('${meal.title} marked as favorite');
       }
     });
   }
@@ -61,6 +62,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
+      drawer: MainDrawer(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
