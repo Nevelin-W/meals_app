@@ -18,7 +18,6 @@ class MainDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Theme.of(context).colorScheme.primaryContainer,
                   Theme.of(context).colorScheme.primary.withOpacity(0.8),
                   Theme.of(context).colorScheme.primaryContainer,
                 ],
@@ -32,13 +31,13 @@ class MainDrawer extends StatelessWidget {
                 Icon(
                   Icons.fastfood,
                   size: 40,
-                  color: Theme.of(context).colorScheme.scrim,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
                 const SizedBox(width: 18),
                 Text(
                   'Cooking Up!',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.scrim,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -76,7 +75,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
-              onSelectScreen('Filters');
+              onSelectScreen('filters');
             },
           )
         ],
