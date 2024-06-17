@@ -57,7 +57,8 @@ class MealDetailsScreen extends ConsumerWidget {
                 duration: const Duration(milliseconds: 500),
                 transitionBuilder: (child, animation) {
                   return ScaleTransition(
-                    scale: Tween<double>(begin: 0.6, end: 1).animate(animation),
+                    scale:
+                        Tween<double>(begin: 0.57, end: 1).animate(animation),
                     child: child,
                   );
                 },
