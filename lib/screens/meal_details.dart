@@ -26,38 +26,49 @@ class MealDetailsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteMeals = ref.watch(favoriteMealsProvider);
 
-    final bool isFavorite = favoriteMeals.contains(meal);
+    final isFavorite = favoriteMeals.contains(meal);
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              final wasAdded = ref
-                  .read(favoriteMealsProvider.notifier)
-                  .toggleMealFavoriteStatus(meal);
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(wasAdded
-                      ? 'Added to favorites'
-                      : 'Removed from favorites'),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-            },
-            icon: Icon(isFavorite ? Icons.star : Icons.star_border_rounded,
-                size: 28),
-          )
-        ],
-        title: Text(
-          meal.title,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+          title: Text(
+            meal.title,
+            /* style: Theme.of(context).textTheme.titleLarge!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
+              fontWeight: FontWeight.bold), */
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                final wasAdded = ref
+                    .read(favoriteMealsProvider.notifier)
+                    .toggleMealFavoriteStatus(meal);
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(wasAdded
+                        ? 'Added to favorites'
+                        : 'Removed from favorites'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              icon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(
+                    scale: Tween<double>(begin: 0.6, end: 1).animate(animation),
+                    child: child,
+                  );
+                },
+                child: Icon(
+                  isFavorite ? Icons.star : Icons.star_border,
+                  key: ValueKey(isFavorite),
+                  size: 28,
+                ),
+              ),
+            ),
+          ]),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
